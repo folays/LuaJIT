@@ -37,6 +37,8 @@
 #include "lj_strfmt.h"
 #include "lj_lib.h"
 
+#include "lj_vm.h"
+
 /* -- Base library: checks ------------------------------------------------ */
 
 #define LJLIB_MODULE_base
@@ -474,6 +476,13 @@ LJLIB_CF(collectgarbage)
   }
   L->top++;
   return 1;
+}
+
+LJLIB_CF(lj_vm_exit_handler)
+{
+    setint64V(L->top, (uintptr_t)(void *)lj_vm_exit_handler);
+    L->top++;
+    return 1;
 }
 
 /* -- Base library: miscellaneous functions ------------------------------- */
